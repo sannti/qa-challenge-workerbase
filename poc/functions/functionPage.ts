@@ -24,17 +24,17 @@ export default class FunctionPage {
         this.ruleDescription = this.page.locator('textarea[name="description"]');
         this.ruleName = this.page.locator('input[name="name"]');
         this.workinstructionLabel = this.page.locator('label[for="workinstruction-id"]');
-        this.workinstructionSelect = this.workinstructionLabel.locator('xpath=following::input[starts-with(@id, "react-select-")][1]');
+        this.workinstructionSelect = this.workinstructionLabel.locator('xpath=following::input[starts-with(@id, "react-select-")][1]'); // This element should have an ID
         this.taskHeadline = this.page.locator('input[name="task-headline"]');
         this.taskTitle = this.page.locator('input[name="task-title"]');
         this.taskDescription = this.page.locator('textarea[name="task-description"]');
         this.taskPriority = this.page.locator('input[name="task-priority"]');
-        this.recipientType = (recipientType: RegExp | string) => this.page.locator('li', { hasText: recipientType });
+        this.recipientType = (recipientType: RegExp | string) => this.page.locator(`label[for="${recipientType}"]`);
         this.saveButton = this.page.locator('button', { hasText: 'Save' });
     }
 
     async navigateTo(projectId: string,) {
-        let url = `https://review-4197.review.workerbase.dev/projects/${this.projectId}/rules/create`; // TODO: Parametrise domain
+        let url = `https://review-4197.review.workerbase.dev/projects/${projectId}/rules/create`; // TODO: Parametrise domain
         await this.page.goto(url);
     }
 
